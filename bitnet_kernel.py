@@ -338,8 +338,10 @@ def benchmark_bitnet(M, N, K):
 
 
 if __name__ == "__main__":
+    import sys
     print("=== BitNet 1.58-bit Ternary Matmul Kernel ===\n")
-    verify_bitnet()
+    if not verify_bitnet():
+        sys.exit(1)
     print()
     for sz in [(1024, 1024, 1024), (2048, 2048, 2048),
                (4096, 4096, 4096), (8192, 8192, 8192)]:

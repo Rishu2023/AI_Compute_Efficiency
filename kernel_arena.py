@@ -315,10 +315,13 @@ def benchmark_config(config, M, N, K, warmup=10, rep=50):
         ms = s.elapsed_time(e) / rep
         tflops = 2 * M * N * K / (ms * 1e-3) / 1e12
 
-        # Verify correctness (spot check)
+        # Verify correctness (spot check) — use a relaxed tolerance (5.0)
+        # because the arena tests many unusual configs that may accumulate
+        # more fp16 rounding error than the carefully-tuned main kernels
+        # (which use 1.0–2.0 thresholds).
         ref = torch.matmul(a, b)
         err = (ref - c).abs().max().item()
-        if err > 5.0:  # tolerance for fp16
+        if err > 5.0:
             return 0.0
 
         return tflops

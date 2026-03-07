@@ -361,8 +361,10 @@ def benchmark_sparse(M, N, K, sparsity=0.5):
 
 
 if __name__ == "__main__":
+    import sys
     print("=== Block-Sparse Matmul Kernel ===\n")
-    verify_sparse()
+    if not verify_sparse():
+        sys.exit(1)
     print()
     for sparsity in [0.5, 0.75, 0.9]:
         print(f"\n--- Sparsity: {sparsity:.0%} ---")

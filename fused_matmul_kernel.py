@@ -314,9 +314,11 @@ def benchmark_fused(M, N, K, activation='gelu'):
 
 
 if __name__ == "__main__":
+    import sys
     print("=== Fused Matmul + Bias + Activation Kernel ===\n")
     print("Verification:")
-    verify_fused()
+    if not verify_fused():
+        sys.exit(1)
     print()
     for act in ['relu', 'gelu', 'silu']:
         print(f"\n--- Activation: {act} ---")

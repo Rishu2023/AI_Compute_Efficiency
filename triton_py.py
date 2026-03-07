@@ -205,8 +205,10 @@ def verify():
 
 
 if __name__ == "__main__":
+    import sys
     print("=== T4 Matmul — FP16 Tensor Core, apples-to-apples ===\n")
-    verify()
+    if not verify():
+        sys.exit(1)
     print()
     for sz in [(512, 512, 512), (1024, 1024, 1024), (2048, 2048, 2048),
                (4096, 4096, 4096), (8192, 8192, 8192)]:
